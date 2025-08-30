@@ -1,0 +1,28 @@
+name: Build CL-B1N-PS3
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Instalar dependências
+      run: sudo apt-get update && sudo apt-get install -y g++ make
+
+    - name: Compilar CL B1N v0.0
+      run: g++ main.cpp -o clb1n_test
+
+    - name: Upload binário
+      uses: actions/upload-artifact@v3
+      with:
+        name: clb1n-test
+        path: clb1n_test
+        
